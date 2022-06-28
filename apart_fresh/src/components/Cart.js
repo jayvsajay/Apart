@@ -3,6 +3,8 @@ import React,{useState,useEffect} from 'react'
 import { TableContainer } from '@mui/material'
 import {useNavigate} from 'react-router-dom';
 import { getCart,incrementproduct,decrementproduct,deleteOrder } from '../config/MyService';
+import { URL } from '../config/url';
+
 export default function Cart() {
   let [products,setProducts] = useState([]);
   let [total, setTotal] = useState(0);
@@ -92,9 +94,9 @@ const deleteCart = (id) =>{
         <TableBody>
         {products.map(prd=>
                  <TableRow key={prd._id}>
-                    <TableCell sx={{textAlign:'left'}}><Grid><Grid item md={4}><img src={`${URL}user/${prd.product_id.product_image}`} alt="imag1" width='100px' height='100px'/>
+                    <TableCell sx={{textAlign:'left'}}><Grid><Grid item md={4}>
+                      <img src={`${URL}user/${prd.product_id.product_image}`} alt="imag1" width='100px' height='100px'/>
                     </Grid> <Grid item lg={5}><p >{prd.product_id.product_name}<br/>
-                    by {prd.product_id.product_producer}<br/>
                     Status: In stock</p></Grid></Grid></TableCell>
                     <TableCell sx={{p:3}}><Grid contianer direction='row'>
                         <Grid item ><Button variant='contained' onClick={()=>increment(prd.product_id)}>+</Button></Grid>

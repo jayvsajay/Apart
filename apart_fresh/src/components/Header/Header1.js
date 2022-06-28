@@ -13,9 +13,11 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import { getCart } from '../../config/MyService';
 import {useDispatch,useSelector} from 'react-redux'
 import { Badge } from '@mui/material';
-
+import swal from 'sweetalert';
 
 export default function Header1() {
+ 
+  
   const navigate=useNavigate()
   const dispatch=useDispatch();
   const cartCount = useSelector(state=>state.cartCount);
@@ -23,18 +25,19 @@ export default function Header1() {
   const userdata=JSON.parse(localStorage.getItem('user'))
 React.useEffect(()=>{
   let user=JSON.parse(localStorage.getItem('user'))
-  if(user.email){
+  if(user!==null){
     getCart(user.email)
     .then(res=>{
       if(res.data.err){
         console.log(res.data.err);
       }
       else{
+        console.log(res.data.cart.length)
         dispatch({type:'cart',payload:res.data.cart.length})
       }
     })
     }
-})
+},[])
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -90,8 +93,9 @@ React.useEffect(()=>{
                 onClick={handleMenu1}
                 color="inherit"
               >
-                <ShoppingBagIcon><Badge>{cartCount}</Badge></ShoppingBagIcon>
+                <Badge color='error' badgeContent={cartCount}><ShoppingBagIcon/></Badge>
               </IconButton>
+             
               <IconButton
                 size="large"
                 onClick={handleMenu}

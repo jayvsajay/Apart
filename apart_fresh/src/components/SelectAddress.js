@@ -2,6 +2,10 @@ import React,{useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../config/MyService';
 import { Button, Card, FormControl, FormControlLabel,Radio, RadioGroup,} from '@mui/material'
+// import swal from 'sweetalert';
+// import StripeCheckout from "react-stripe-checkout";
+
+
 export default function SelectAddress() {
   let [addresses, setAddresses] = useState([]);
     const navigate = useNavigate();
@@ -15,16 +19,32 @@ export default function SelectAddress() {
               console.log(res.data.user[0].address)
                 setAddresses(res.data.user[0].address)
             }
-        })}
+        })
+    }
         else{
             alert("Login required")
         }
     },[]);
-
+   
     const handleAddress = () =>{
+    //  let token=JSON.parse(localStorage.getItem('token'))
        localStorage.setItem('address',JSON.stringify(addr));
-       navigate('/checkout');
+       navigate('/checkout')
+      //  console.log({token,product})
+      //     checkout(token,product)
+      //     .then(res=>{
+      //       if(res.data.status===200){
+      //         swal("Success! Check email for details",);
+      //         navigate('/order')
+      //       } else {
+      //         swal("Something went wrong");
+      //       }
+      //       })
     }
+    
+   
+    
+   
   return (
     <div>
         <h1>SelectAddress</h1>
@@ -51,8 +71,19 @@ export default function SelectAddress() {
           
           
     
-        <Button variant='contained' sx={{m:4}} onClick={()=>handleAddress()}>Next</Button>
-        <Button variant='contained' href='/addaddress'>AddAddress</Button>
+        <Button variant='contained'  onClick={()=>handleAddress()}>Next</Button>
+
+
+        {/* <StripeCheckout
+            className="center"
+            stripeKey="pk_test_51KWgHaSFtA7TiCtRFJeTPlFXOYDs0StwStpoVeIh40UCM8g7BXqaTdi9uttSoayNsua5FWH6XwoTyvQX1khjloq300nu0ZS3JD"
+            token={handleAddress}
+            amount={product.price * 100}
+            name="Sample Book"
+            billingAddress
+            shippingAddress
+          /> */}
+        <Button variant='contained'sx={{m:4}} href='/addaddress'>AddAddress</Button>
     </div>
   )
 }

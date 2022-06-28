@@ -11,7 +11,7 @@ const {authenticateToken}=require('../Authentication/Aunthenticate')
 // const sendMail=require('../helpers/sendMail')
 // const productModel=require("../schemas/Products")
 // const orderModel=require("../schemas/order");
-const {getCart, search_product, deleteOrder, productdata, Addrate, getProduct, Increment_Quantity, decrement_quantity, Addtocart}=require('../Controllers/Productcontroller');
+const {getCart, search_product, deleteOrder, productdata, Addrate, getProduct, Increment_Quantity, decrement_quantity, Addtocart, checkout, getOrder, getOrd}=require('../Controllers/Productcontroller');
 const { registeration, loginUser, getProfile, UpdateProfile, Changepassword, Addaddress, Uplodlogo } = require('../Controllers/UserController');
 // const jwtsecret = 'shfdjd43kskdj5jfdk';
 // const saltRounds = 10;
@@ -31,7 +31,7 @@ router.post('/login',loginValidate, loginUser)
 //     }
 // })
 router.get('/getproducts',productdata)
-router.get('/getprofile/:email',authenticateToken,getProfile)
+router.get('/getprofile/:email',getProfile)
 router.put('/updateprofile/:email',UpdateProfile)
 router.post('/changepassword',Changepassword)
 router.put('/addaddress/:email',Addaddress)
@@ -44,4 +44,7 @@ router.put('/incrementquantity',Increment_Quantity)
 router.put('/decrementquantity',decrement_quantity)
 router.delete('/deleteorder/:id',deleteOrder)
 router.get('/search/:key',search_product)
+router.put("/checkout",checkout);
+router.get("/getOrder/:email",getOrder)
+router.get("/getOrderbyid/:id",getOrd)
 module.exports = router;

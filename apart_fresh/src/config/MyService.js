@@ -55,6 +55,10 @@ export function deleteOrder(id){
 export function search_by_Products(key){
     return axios.get(`${URL}user/search/${key}`)
 }
-export function getOrder_Details(){
-    
+export function checkout_order(data){
+    return axios.put(`${URL}user/checkout`,data);
+}
+
+export function getOrd(id) {
+    return axios.get(`${URL}user/getorderbyid/${id}`);
 }
