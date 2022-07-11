@@ -12,7 +12,7 @@ app.use('/user', userRoutes);
 connectDB();
 
 
-app.listen(3030, (err) => {
+app.listen(3031, (err) => {
     if(err) throw err;
-    console.log('Working at 3030');
+    console.log('Working at 3031');
 })

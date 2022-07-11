@@ -3,8 +3,10 @@ import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { updatepassword } from '../config/MyService';
 import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChangePassword() {
+  const navigate=useNavigate();
   const [oldpassword,setPassword]=useState();
   const [newpassword,setNewpassword]=useState();
   const [confirmpassword,setCpassword]=useState();
@@ -18,6 +20,7 @@ export default function ChangePassword() {
           swal(res.data.msg)
         }else{
           swal(res.data.msg)
+          navigate('/myprofile')
         }
       })
     }else{

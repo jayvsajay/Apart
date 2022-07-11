@@ -37,6 +37,7 @@ export default function Productreview(props) {
         setCost(res.data.Item[0].price);
         setPname(res.data.Item[0].product_name);
         setRate(res.data.Item[0].rating)
+        console.log(res.data.Item[0].rating)
         }
       })
     },[state.id])
@@ -79,24 +80,27 @@ export default function Productreview(props) {
   return (
     <div>
       <Grid container direction='row'>
-        <Grid item md={6}>
+        <Grid item md={6}sx={{mt:2}} >
         <ReactImageMagnify {...{
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
-        src: `${URL}user/${im}`
+        src: `${URL}user/${im}`,
+        sizes: '(max-width: 480px) 100vw, (max-width: 1200px)  360px'
     },
     largeImage: {
         src: `${URL}user/${im}`,
-        width: 1200,
+        width: 1100,
         height: 1800,
-    }
+    },
+    isHintEnabled: true,
+    shouldHideHintAfterFirstActivation: false
 }} />        
         </Grid>
         <Grid item md={6} xs={12}>
           <h1>{pname}</h1> 
           <Rating
-                value={rate}
+                value={parseInt(rate)}
                 precision={0.5}
                 name="rate"
               />

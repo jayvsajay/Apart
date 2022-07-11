@@ -11,7 +11,7 @@ import { URL } from '../config/url';
 
 export default function Order() {
   const [order_details,setOrder_details]=useState([]);
-  const [timeout,setTime]=useState(false)
+  const [timeout,setTime]=useState(0)
   const navigate=useNavigate()
 
   useEffect(()=>{

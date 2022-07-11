@@ -42,6 +42,7 @@ const increment = (id) =>{
       }
       else{
           alert(res.data.msg);
+          window.location.reload();
       }
   })
 }
@@ -54,6 +55,7 @@ const decrement = (id) =>{
       }
       else{
           alert(res.data.msg);
+          window.location.reload();
       }
   })
 }
@@ -70,6 +72,7 @@ const deleteCart = (id) =>{
       }
       else{
           alert(res.data.msg);
+          window.location.reload();
       }
   })
 }

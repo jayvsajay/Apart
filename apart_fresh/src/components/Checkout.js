@@ -16,13 +16,14 @@ export default function Checkout() {
          let email = JSON.parse(localStorage.getItem('user')).email;
          let address = JSON.parse(localStorage.getItem('address'));
          let data = {email:email, address:address};
+         console.log()
      checkout_order(data)
-     .then(res=>{
+     .then(res=>{ 
          if(res.data.err){
-             alert(res.data.err);
+             swal(res.data.err);
          }
          else{
-         alert(res.data.msg);
+         swal(res.data.msg);
          localStorage.removeItem('address');                 
          navigate('/dashboard');
          window.location.reload();

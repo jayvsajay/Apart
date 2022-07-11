@@ -37,7 +37,7 @@ const registeration=async(req, res)=>{
     try{
         const user_data = await new userModel(data1);
         await user_data.save();
-        sendMail(user_data)
+        // sendMail(user_data)
         res.json({status_code: 201, msg: 'Registered successfully'})
     }
     catch(err){
@@ -134,7 +134,7 @@ const Addaddress=async(req,res)=>{
     let Country=req.body.Country;
     let pincode=req.body.pincode;
     let data={address1,address2,State,Country,pincode}
-  console.log(email)
+  console.log(data)
     userModel.updateOne({email:email},{$push:{address:data}},(err)=>{
         if(err) {
             console.log(err)

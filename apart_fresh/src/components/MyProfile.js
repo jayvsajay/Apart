@@ -19,7 +19,7 @@ export default function MyProfile() {
         const a=JSON.parse(localStorage.getItem('user'))
         getUser(a.email)
         .then((res)=>{
-            console.log(res.data.user[0])
+            console.log(res.data)
             setProfile(res.data.user[0])
             setAddress1(res.data.user[0].address[0].address1)
             setAddress2(res.data.user[0].address[0].address2)

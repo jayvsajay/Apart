@@ -17,7 +17,7 @@ function Login() {
             if(res.data.status_code === 200){
                 swal(res.data.msg,'', "Success");;
                 localStorage.setItem("user",JSON.stringify(body));
-                localStorage.setItem("token",JSON.stringify(res.data.token));
+                localStorage.setItem("token",res.data.token);
                 navigate('/dashboard')
             }
             else{

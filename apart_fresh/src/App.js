@@ -3,6 +3,7 @@ import './App.css';
 import {ErrorBoundary} from 'react-error-boundary'
 import React ,{ Suspense ,lazy, useState}from 'react'
 import ErrorFallback from './components/ErrorBoundaries';
+const EditAddress=lazy(()=>import('../src/components/EditAddress'))
 const Register=lazy(()=>import('../src/components/Register'));
 const Login=lazy(()=>import('../src/components/Login'));
 const Header1=lazy(()=>import('../src/components/Header/Header1'));
@@ -54,11 +55,10 @@ function App() {
             <Route path='/checkout' element={<Checkout/>}/>
             <Route path="/selectaddress" element={<SelectAddress/>}/>
             <Route path='/order' element={<Order/>}/>
+            <Route path='editaddress' element={<EditAddress/>}/>
           </Routes>
           </Suspense>
         </Router>  
-       
-     
         </ErrorBoundary>
       </div>
       <Footer/>

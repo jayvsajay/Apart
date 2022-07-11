@@ -2,9 +2,11 @@ import React,{useState,useEffect} from 'react'
 import { TextField,Container,Box, Button } from '@mui/material'
 import swal from 'sweetalert';
 import { getUser,updateprofile } from '../config/MyService';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function EditProfile() {
+    const navigate=useNavigate();
     const [firstname, setFname] = useState('');
     const [lastname, setLname] = useState('');
     const [email, setEmail] = useState('');
@@ -37,6 +39,7 @@ export default function EditProfile() {
                swal(res.data.msg)
            }else{
             swal(res.data.msg)
+            navigate('/myprofile')
            }
        })
    }

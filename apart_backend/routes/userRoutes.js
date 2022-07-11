@@ -1,50 +1,60 @@
 const express = require('express');
-// const userModel = require('../schemas/User');
-// const jwt = require('jsonwebtoken');
-// const bcrypt = require('bcrypt');
-// const multer=require('multer');
-// const path=require('path');
-// const helpers=require('../helpers/helpers')
+const path = require('path')
+const shortid = require('shortid')
+const Razorpay = require('razorpay')
 const registerValidate = require('../validations/registerValidate');
 const loginValidate = require('../validations/loginValidate');
 const {authenticateToken}=require('../Authentication/Aunthenticate')
-// const sendMail=require('../helpers/sendMail')
-// const productModel=require("../schemas/Products")
-// const orderModel=require("../schemas/order");
 const {getCart, search_product, deleteOrder, productdata, Addrate, getProduct, Increment_Quantity, decrement_quantity, Addtocart, checkout, getOrder, getOrd}=require('../Controllers/Productcontroller');
 const { registeration, loginUser, getProfile, UpdateProfile, Changepassword, Addaddress, Uplodlogo } = require('../Controllers/UserController');
-// const jwtsecret = 'shfdjd43kskdj5jfdk';
-// const saltRounds = 10;
 const router = express.Router();
 router.use(express.static("uploads"));
-
+const razorpay = new Razorpay({
+	key_id: 'rzp_test_UPbQhy9R6bG5of',
+	key_secret: 'Hi7VAucTlIrvCjefbAS9SCr4'
+})
 router.post('/register',registerValidate, registeration);
 router.post('/login',loginValidate, loginUser)
-// router.post('/contact',async(req,res)=>{
-//     const data=req.body;
-//     try{
-//         sendMailtoadmin(data)
-//         res.json({status_code:201,msg:"Mail send to admin"})
-//     }
-//     catch(err){
-//         res.json({status_code:400,msg:'Error Occured'})
-//     }
-// })
 router.get('/getproducts',productdata)
-router.get('/getprofile/:email',getProfile)
-router.put('/updateprofile/:email',UpdateProfile)
-router.post('/changepassword',Changepassword)
-router.put('/addaddress/:email',Addaddress)
-router.post('/uploadlogo/:email',Uplodlogo)
-router.get('/getitems/:id',getProduct)
-router.put('/addrate/:id' ,Addrate)
-router.post('/addtocart',Addtocart)
-router.get('/getcart/:email',getCart)
-router.put('/incrementquantity',Increment_Quantity)
-router.put('/decrementquantity',decrement_quantity)
-router.delete('/deleteorder/:id',deleteOrder)
+router.get('/getprofile/:email',authenticateToken,getProfile)
+router.put('/updateprofile/:email',authenticateToken,UpdateProfile)
+router.post('/changepassword',authenticateToken,Changepassword)
+router.put('/addaddress/:email',authenticateToken,Addaddress)
+router.post('/uploadlogo/:email',authenticateToken,Uplodlogo)
+router.get('/getitems/:id',authenticateToken,getProduct)
+router.put('/addrate/:id' ,authenticateToken,Addrate)
+router.post('/addtocart',authenticateToken,Addtocart)
+router.get('/getcart/:email',authenticateToken,getCart)
+router.put('/incrementquantity',authenticateToken,Increment_Quantity)
+router.put('/decrementquantity',authenticateToken,decrement_quantity)
+router.delete('/deleteorder/:id',authenticateToken,deleteOrder)
 router.get('/search/:key',search_product)
-router.put("/checkout",checkout);
-router.get("/getOrder/:email",getOrder)
-router.get("/getOrderbyid/:id",getOrd)
+router.get("/getOrder/:email",authenticateToken,getOrder)
+router.get("/getOrderbyid/:id",authenticateToken,getOrd)
+router.post('/razorpay/:carttotal', async (req, res) => {
+	const payment_capture = 1
+	const currency = 'INR';
+    let {email,address}=req.body;
+    const amount=req.params.carttotal;
+    console.log(amount)
+	const options = {
+        amount: amount * 100,
+		currency,
+		receipt: shortid.generate(),
+		payment_capture
+	}
+
+	try {
+		checkout({email,address})
+		const response = await razorpay.orders.create(options)
+		res.json({
+            amount: response.amount,
+			id: response.id,
+			currency: response.currency,
+		})
+	} catch (error) {
+		console.log(error)
+	}
+})
+
 module.exports = router;

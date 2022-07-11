@@ -80,20 +80,14 @@ export default function MyAccoun() {
       </label>
       </form>
       </Avatar>
-     {/* <form method="post"  encType="multipart/form-data" >
-        <label htmlFor="icon-button-file">
-        <Input accept="image/*" id="icon-button-file" type="file"  name="myfile" 
-        onChange={(e)=>setPic(e.target.files[0])} />
-        <Button variant="contained" component="span"  onClick={handleupload}>
-           <PhotoCamera />
-          </Button>
-      </label>
-      </form> */}
+
        <ButtonGroup orientation='vertical'>
       <Button variant='text'  sx={{justifyContent:"left",textAlign:"justify"}}onClick={handleprofile}><AccountCircleIcon/>My Profile</Button>
       <Button variant='text' sx={{justifyContent:"left",textAlign:"justify"}} onClick={handleEdit}><EditIcon/>Edit Profile</Button>
       <Button variant='text'  sx={{justifyContent:"left",textAlign:"justify"}} onClick={handleChange}><RoomIcon/>Change password</Button>
       <Button variant='text'  sx={{justifyContent:"left",textAlign:"justify"}} onClick={handleAddress}><AddCircleIcon/>Add Adress</Button>
+      <Button variant='text'  sx={{justifyContent:"left",textAlign:"justify"}} href='/order'><AddCircleIcon/>My Order</Button>
+      
       </ButtonGroup>
 
     </div>

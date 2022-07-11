@@ -132,14 +132,13 @@ const decrement_quantity=(req, res)=>{
     })
 }
 
-const checkout=(req,res)=>{
-    let {email, address} = req.body;
+const checkout=({email,address})=>{
     orderModel.updateMany({email:email, checkout:false},{$set:{checkout:true,address:address}}, (err)=>{
         if(err){
-            res.json({status_code:400,err:err})
+          console.log(err)
         }
         else{
-            res.json({status_code:200,msg:"Order placed successfully"});
+         console.log("Order placed")
         }
     })
 }
